@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Django Project{% endblock %}</title>
+    {% load static %}
+    <style>
+   body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; 
+}
+
+nav {
+    background-color: #007bff; 
+    padding: 10px 0; /* تنظیم padding برای ایجاد فاصله بالا و پایین یکنواخت */
+    height: auto; /* ارتفاع خودکار بر اساس محتوای داخلی */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end; /* شروع از سمت راست */
+    align-items: center; /* وسط چین کردن عمودی موارد در nav */
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 25px; /* بزرگتر کردن اندازه فونت */
+    padding: 10px 0; /* افزودن padding بالا و پایین به لینک‌ها برای فاصله یکنواخت */
+}
+
+nav ul li a:hover {
+    text-decoration: underline; /* تغییر به underline برای حالت hover */
+}
+
+.container {
+    padding: 30px 0; /* تنظیم padding بالا و پایین */
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center; 
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'predict' %}">Predict</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+        
+        </ul>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+    
+    <script src="{% static 'scripts.js' %}"></script>  
+</body>
+</html>
+
+
+

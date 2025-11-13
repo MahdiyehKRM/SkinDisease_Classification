@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Form</title>
+    <style>
+          body {
+            font-family: Arial, sans-serif;
+            font-size:100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url('https://th.bing.com/th/id/R.88ba75dc537b52f08fc0c327cd989ac1?rik=ZbgQ62hKN5Bkjg&pid=ImgRaw&r=0'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+        }
+        nav {
+            font-size:130%;
+            background-color: #007bff; 
+            padding: 10px 0;
+            display: flex;
+            justify-content: right; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; 
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #ffffff; 
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline; 
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(10px);
+            padding: 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            margin-left:450px;
+            margin-right:200px;
+            max-width: 500px; 
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+            margin-bottom:260px; 
+            z-index: 1;
+            height: 50%; 
+        }
+        .login_form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .login_form_img {
+            display: none; 
+        }
+        .form_login_right {
+            width: 100%;
+            text-align: center;
+        }
+        .form_register_right h1 {
+            margin-bottom: 20px;
+        }
+        .form_register_right form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form_register_right form input,
+        .form_register_right form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 3px;
+        }
+        .form_register_right form button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            padding:8px;
+            width:55%;
+            border-radius: 3px;
+            
+
+        }
+        .form_register_right form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'predict' %}">Predict</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="register_form">
+            <div class="form_register_right">
+                <h2>Register</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Register</button>
+                </form>
+                <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

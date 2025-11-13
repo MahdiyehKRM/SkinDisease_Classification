@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url('https://th.bing.com/th/id/R.c326ca03f785fdef39b1cb5fa61e7acd?rik=MxOTvCbOyZT8%2bg&pid=ImgRaw&r=0');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        nav {
+            background-color: #007bff; 
+            padding: 10px 0;
+            display: flex;
+            justify-content: right; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; 
+            font-size: 130%;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #ffffff; 
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline; 
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(10px);
+            padding: 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            margin-left: 450px;
+            margin-right: 200px;
+            max-width: 500px; 
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+            margin-bottom: 260px; 
+            z-index: 1;
+            height: 50%; 
+        }
+        .dropzone {
+            border: 2px dashed #007bff;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: rgba(233, 236, 239, 0.8);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 150px;
+        }
+        .dropzone.hover {
+            background-color: rgba(0, 123, 255, 0.8); 
+            color: #fff;
+        }
+        .dropzone p {
+            margin: 0;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 65%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .textbox {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: white;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .textbox h4 {
+            margin: 0;
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+      
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'predict' %}">Predict</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Upload Image for Prediction</h1>
+        <form action="{% url 'predict' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="dropzone" id="dropzone">
+                <p>Drag and drop an image here or click to select</p>
+                <input type="file" name="file" id="fileInput" accept="image/*" required>
+            </div>
+            <button type="submit">Upload and Predict</button>
+        </form>
+        {% if prediction %}
+            <h2>Prediction Result</h2>
+            <!-- <p>Class: {{ prediction.class }}</p>
+            <p>Confidence: {{ prediction.confidence }}</p> -->
+
+            <div class="textbox">
+                <h4>{{ prediction.message }}</h4>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+
+        dropzone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        dropzone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropzone.classList.add('hover');
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('hover');
+        });
+
+        dropzone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropzone.classList.remove('hover');
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+            }
+        });
+    </script>
+</body>
+</html>
